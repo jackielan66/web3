@@ -42,28 +42,23 @@ module.exports = async function(cb){
  
 
 
-    // 存以太币 start
-    await exchange.depositEther({
-        from:secondAccount,
-        value:toWei(10)
-    })
-    let ethBn  = await exchange.tokens(ETH_ADDRESS,secondAccount)
-    console.log(fromWei(ethBn),"ethResponse eth  交易所以太币余额")
-    // 存以太币 start
+    // 取以太币 start
+    // await exchange.withdrawEther(toWei(5),{
+    //     from:secondAccount
+    // })
+    // let ethBn  = await exchange.tokens(ETH_ADDRESS,secondAccount)
+    // console.log(fromWei(ethBn),"ethResponse eth 交易所以太币 余额")
+    // 取以太币 start
 
     // 授权
-    await token.approve(exchange.address,toWei(100000),{
-        from:firstAccount
-    });
-    let firstAccountBalance = await token.balanceOf(firstAccount)
-    // let balanceOf = await token.balanceOf()
-    // 第一个账号余额，代币第一个部署账号
-    console.log("firstAccountBalance",fromWei(firstAccountBalance))
 
-    await exchange.depositToken(token.address,toWei(50),{
+
+
+    // // 从交易所取token
+    await exchange.withdrawToken(token.address,toWei(30),{
         from:firstAccount
     });
-    // console.log("deposit")
+    // // console.log("deposit")
 
     let exchangeBalance  = await exchange.tokens(token.address,firstAccount)
     console.log(  fromWei(exchangeBalance) ,"查询在交易所有多少余额")
